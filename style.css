@@ -1,0 +1,36 @@
+*, 
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(250, 203, 211);
+    min-height: 100vh;
+     
+}
+
+
+.sketch-area {
+    width: 80%;
+    height: 60vh;
+    background-color: white;
+    border: 1px solid black;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+@media (min-width: 700px) {
+    .sketch-area {
+        width: 50%;
+        height: 70vh
+    }
+}
+
+.points {
+    
+    width:calc(100% / 64);
+    border:1px solid transparent;
+    margin: 0;
+}
