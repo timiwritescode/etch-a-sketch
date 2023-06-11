@@ -5,32 +5,93 @@
 }
 
 body {
-    background-color: rgb(250, 203, 211);
+    background-color: #f1f5f8;
     min-height: 100vh;
+    
      
 }
 
+header {
+    display: grid;
+    grid-template-columns: 90% 10%;
+    align-items: center;
+    margin-bottom: 3rem;
+}
 
+header > h1 {
+    text-align: center;
+    margin: 0;
+}
+
+.default {
+   
+}
+
+.panel {
+    position:absolute;
+    top: 0;
+    right: 0;
+    min-height: 100vh;
+    background-color: rgb(221, 114, 114);
+    color: black;
+    display: flex;
+    z-index: 1;
+}
+
+.panel-toggle {
+    width: 30px;
+    height: 30px;
+    border: 1px solid blue;
+}
+
+
+.panel-elements {
+    display: none;
+}
+
+
+/*
+@media (min-width: 700px) {
+    .default {
+        display: none;
+    }
+}*/
+
+
+.active-transition {
+    transition: width 0.5s ease; 
+}
+
+
+.main {
+    width: 100%;
+}
 .sketch-area {
-    width: 80%;
-    height: 60vh;
+    width: 300px;
+    height: 350px;
     background-color: white;
-    border: 1px solid black;
     display: flex;
     flex-wrap: wrap;
     margin: auto;
+    box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.3);
 }
 
-@media (min-width: 700px) {
+@media (min-width: 650px) {
     .sketch-area {
-        width: 50%;
-        height: 70vh
+        width: 400px;
+        height: 60vh
+    }
+}
+
+@media (min-width: 900px) {
+    .sketch-area {
+        width: 500px;
+        height: 70vh;
     }
 }
 
 .points {
-    
-    width:calc(100% / 64);
-    border:1px solid transparent;
+    width:calc(100% / 17);
     margin: 0;
+
 }
