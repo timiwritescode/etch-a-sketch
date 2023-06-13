@@ -27,7 +27,8 @@ function createGrid () {
     let points = document.querySelectorAll('.points');
     points.forEach((point) => {
         point.addEventListener('mousedown', changeColor);
-        point.addEventListener('mouseover',changeColor);  
+        point.addEventListener('mouseover',changeColor); 
+        point.addEventListener('swipe', changeColor)
     });
     
 };
@@ -43,7 +44,7 @@ function changeColor (e) {
         return;
     }; 
 } else {
-    if (e.type === 'mouseover') {
+    if (e.type === 'swipe') {
         e.target.style.backgroundColor = 'green';
     }
 } };
