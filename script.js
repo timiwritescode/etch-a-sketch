@@ -34,14 +34,19 @@ function createGrid () {
 
 
 function changeColor (e) {
-    if ((mouseDown && e.type === 'mouseover') || e.type == 'mousedown'){
-        e.target.style.backgroundColor = 'green';
-        console.log(e.type);
-} else {
-    return;
-};
     
-};
+    if (window.innerWidth > 700) {
+        if ((mouseDown && e.type === 'mouseover') || e.type == 'mousedown'){
+            e.target.style.backgroundColor = 'green';
+            console.log(e.type);
+    } else {
+        return;
+    }; 
+} else {
+    if (e.type === 'mouseover') {
+        e.target.style.backgroundColor = 'green';
+    }
+} };
 
 
 //function to add elements based on screen size
@@ -84,11 +89,13 @@ function togglePanelOff () {
     panelActive.style.display = 'none'
 };
 
+
+
 window.addEventListener('resize', () => {
     if (window.innerWidth < 700) {
-        addElementsBasedOnScreenSize()      
-    } else {
-        
+        addElementsBasedOnScreenSize();
+      
+    } else {      
         removeElementsBasedOnScreenSize()
         
     }
