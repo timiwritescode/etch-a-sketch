@@ -91,5 +91,5 @@ header > h1 {
 .points {
     width:calc(100% / 32);
     margin: 0;
-    border: 1px solid red;
+    
 }
