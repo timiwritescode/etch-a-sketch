@@ -5,22 +5,33 @@ let panelActive = document.querySelector('.p');
 mouseDown = false;
 sketchArea.addEventListener('mousedown', () => {
     mouseDown = true;
-    console.log(mouseDown);
+
 });
 
 sketchArea.addEventListener('mouseup', () => {
     mouseDown = false;
-    console.log(mouseDown);
+
 });
 
+sketchArea.addEventListener('touchstart', e => {
+  e.target.style.backgroundColor = getPaintColor()
+}, {passive: false})
 
+sketchArea.addEventListener('touchmove', (e)=> {
+  e.preventDefault();
+  let touch = e.touches[0];
+  let element = document.elementFromPoint(touch.clientX, touch.clientY);
+  if (element.className === 'points') {
+    element.style.backgroundColor = getPaintColor()
+  }
+}, {passive:false})
 
 
 // utility functions
 function createGrid () {
     let newPoints = document.createElement('div');
     newPoints.className = 'points';
-    for (let i =0; i < 17 * 17; ++i) {
+    for (let i =0; i < 32 * 32; ++i) {
         sketchArea.appendChild(newPoints.cloneNode(true))
     };
 
@@ -28,26 +39,27 @@ function createGrid () {
     points.forEach((point) => {
         point.addEventListener('mousedown', changeColor);
         point.addEventListener('mouseover',changeColor); 
-        point.addEventListener('swipe', changeColor)
+        
     });
     
 };
 
+function getPaintColor () {
+  return 'green'
+}
 
 function changeColor (e) {
     
     if (window.innerWidth > 700) {
         if ((mouseDown && e.type === 'mouseover') || e.type == 'mousedown'){
-            e.target.style.backgroundColor = 'green';
+            e.target.style.backgroundColor = getPaintColor();
             console.log(e.type);
     } else {
         return;
     }; 
-} else {
-    if (e.type === 'swipe') {
-        e.target.style.backgroundColor = 'green';
-    }
-} };
+} 
+ };
+
 
 
 //function to add elements based on screen size
@@ -95,7 +107,7 @@ function togglePanelOff () {
 window.addEventListener('resize', () => {
     if (window.innerWidth < 700) {
         addElementsBasedOnScreenSize();
-      
+              
     } else {      
         removeElementsBasedOnScreenSize()
         
@@ -110,3 +122,4 @@ window.addEventListener('load', () => {
     createGrid();
     
 })
+
