@@ -1,10 +1,17 @@
 let sketchArea = document.querySelector('.sketch-area')
 let panelToggleOn = document.querySelector('.panel-toggle-on');
 let panelToggleOff = document.querySelector('.panel-toggle-off')
+
+mouseDown = false;
+
 sketchArea.addEventListener('mouseup', () => {
     mouseDown = false;
 
 });
+
+sketchArea.addEventListener('mousedown', () => {
+    mouseDown = true;
+})
 
 sketchArea.addEventListener('touchstart', e => {
   e.target.style.backgroundColor = getPaintColor()
@@ -42,8 +49,7 @@ function getPaintColor () {
   return 'green'
 }
 
-function changeColor (e) {
-    
+function changeColor (e) {    
     if (window.innerWidth > 700) {
         if ((mouseDown && e.type === 'mouseover') || e.type == 'mousedown'){
             e.target.style.backgroundColor = getPaintColor();
@@ -59,7 +65,9 @@ function changeColor (e) {
 //function to add elements based on screen size
 function addElementsBasedOnScreenSize () {
     if (window.innerWidth < 700) {
-        let mainElement = document.querySelector('.mobile-panel');
+        let mainElement = document.querySelector('.panel-toggle-on');
+        let panel = document.querySelector('.panel');
+        panel.classList.add('panel-full-height')
         mainElement.style.display = 'inherit';
         };
 }
@@ -67,8 +75,13 @@ function addElementsBasedOnScreenSize () {
 // function to remove elements based on the screen size
 function removeElementsBasedOnScreenSize () {
     if (window.innerWidth >= 700) {
-    let mainElement = document.querySelector('.mobile-panel');
-    mainElement.style.display = 'none';
+    let panelToggleOn = document.querySelector('.panel-toggle-on');
+    let panel = document.querySelector('.panel');
+    panelToggleOn.style.display = 'none';
+
+    if (panel.classList.contains('panel-full-height')) {
+        panel.classList.remove('panel-full-height')
+    }
     };
 }
 
@@ -77,6 +90,7 @@ function removeElementsBasedOnScreenSize () {
 function togglePanelOn () {
     let panel = document.querySelector('.panel');
     panel.classList.add('panel-active')
+    
 };
 
 
@@ -103,6 +117,7 @@ window.addEventListener('load', () => {
     panelToggleOn.addEventListener('click', togglePanelOn);
     panelToggleOff.addEventListener('click', togglePanelOff);
     removeElementsBasedOnScreenSize()
+    addElementsBasedOnScreenSize()
     createGrid();
     
 })
