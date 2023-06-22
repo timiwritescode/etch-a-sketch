@@ -11,25 +11,44 @@
 <body>
     <header>
         <h1>etch-a-sketch</h1>
-        <div class="mobile-panel">
-            <div class="panel-toggle-on">tools</div>
-            <div class="panel">
-                    <div class="panel-toggle-off"></div>
-                    <div class="main">
-                        <h3>Color panel</h3>
-                        
-                    </div>  
-
-                    
-                
-            </div>
-        </div>
-
+        
     </header>
     <main>
         <div class="main">
+            <div class="mobile-panel">
+                <div class="panel-toggle-on">tools</div>
+                <div class="panel">
+                        <div class="panel-toggle-off"></div>
+                        <div class="settings">
+                            <h1>Settings</h3>
+    
+                            
+                            <h2>Choose Color</h2>
+                            <div class="buttons">
+                                <button>Default</button>
+                                <button>Rainbow</button>
+                                <h2>Custom</h2>
+                                <div class="custom-color-choice">
+                                    <input type="color">
+                                    <input type="text">
+                                    <button>Choose color</button>
+                                </div>
+                                
+                                <div class="grid-size-container">
+                                    <h2>Grid size</h2>
+                                    <p>16 X 16</p>
+                                    <input id="grid-size-input" type="range">
+                                </div>
+                            </div>
+                            
+                        </div> 
+                </div>
+            </div>
             
-            <div class="sketch-area"></div>
+            <div class="sketch-area-container">
+                <div class="sketch-area"></div>
+            </div>
+            
         </div>
         </main>
         
