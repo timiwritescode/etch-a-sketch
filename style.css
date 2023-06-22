@@ -26,6 +26,7 @@ header > h1 {
 
 
 .panel {
+    width: 0;
     position:absolute;
     top: 0;
     right: 0;
@@ -34,17 +35,18 @@ header > h1 {
     color: black;
     display: flex;
     z-index: 1;
+    overflow: hidden;
+    transition: width 0.5s;
 }
 
-.panel-toggle {
+.panel-active {
+    width: 50%
+}
+
+.panel-toggle-on, .panel-toggle-off {
     width: 30px;
     height: 30px;
     border: 1px solid blue;
-}
-
-
-.panel-elements {
-    display: none;
 }
 
 
@@ -55,10 +57,6 @@ header > h1 {
     }
 }*/
 
-
-.active-transition {
-    transition: width 0.5s ease; 
-}
 
 
 .main {
