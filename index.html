@@ -25,19 +25,23 @@
                             
                             <h2>Choose Color</h2>
                             <div class="buttons">
-                                <button>Default</button>
-                                <button>Rainbow</button>
+                                <button id="default" class="btn-active">Default</button>
+                                <button id="rainbow">Rainbow</button>
+                                <button id="eraser">Eraser</button>
                                 <h2>Custom</h2>
                                 <div class="custom-color-choice">
-                                    <input type="color">
-                                    <input type="text">
-                                    <button>Choose color</button>
+                                    <input type="color" id="color-wheel">
+                                    <button id="custom">Choose color</button>
                                 </div>
                                 
                                 <div class="grid-size-container">
                                     <h2>Grid size</h2>
-                                    <p>16 X 16</p>
-                                    <input id="grid-size-input" type="range">
+                                    <p id="grid-size-value">17 X 17</p>
+                                    <input id="grid-size-input" 
+                                        type="range"
+                                        min="12"
+                                        max="32"
+                                        value="17">
                                 </div>
                             </div>
                             

@@ -172,7 +172,13 @@ input[type='color'] {
 }
 
 .points {
-    width:calc(100% / 32);
+    border: 1px solid blue;
     margin: 0;
     
+}
+
+
+/* class toggleable by javascripts for buttons */
+.btn-active {
+    background-color: deepskyblue;
 }

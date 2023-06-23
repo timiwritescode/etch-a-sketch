@@ -14,7 +14,12 @@ sketchArea.addEventListener('mousedown', () => {
 })
 
 sketchArea.addEventListener('touchstart', e => {
-  e.target.style.backgroundColor = getPaintColor()
+    if (!e.target.style.backgroundColor && x != 1) {
+        e.target.style.backgroundColor = getPaintColor()
+    } else {
+        e.target.style.backgroundColor = getPaintColor()
+    };
+    
 }, {passive: false})
 
 sketchArea.addEventListener('touchmove', (e)=> {
@@ -23,36 +28,44 @@ sketchArea.addEventListener('touchmove', (e)=> {
   let element = document.elementFromPoint(touch.clientX, touch.clientY);
   
   if (element.className === 'points') {
-    element.style.backgroundColor = getPaintColor()
-  }
+    if (!element.style.backgroundColor && x != 1) {
+        element.style.backgroundColor = getPaintColor();
+    } else {
+        element.style.backgroundColor = getPaintColor();
+    };
+  };
 }, {passive:false})
 
 
 // utility functions
 function createGrid () {
     let newPoints = document.createElement('div');
+    let gridSizeInput = document.getElementById('grid-size-input');
+    let gridSize = gridSizeInput.value;
     newPoints.className = 'points';
-    for (let i =0; i < 32 * 32; ++i) {
+    for (let i =0; i < +gridSize * +gridSize; ++i) {
         sketchArea.appendChild(newPoints.cloneNode(true))
     };
-
+    
     let points = document.querySelectorAll('.points');
     points.forEach((point) => {
         point.addEventListener('mousedown', changeColor);
         point.addEventListener('mouseover',changeColor); 
+        point.style.width = `calc(100% / ${gridSize})`
         
     });
     
 };
 
-function getPaintColor () {
-  return 'green'
-}
 
 function changeColor (e) {    
     if (window.innerWidth > 700) {
         if ((mouseDown && e.type === 'mouseover') || e.type == 'mousedown'){
-            e.target.style.backgroundColor = getPaintColor();
+            if((!e.target.style.backgroundColor && x != 1) &&
+                e.target.style.backgroundColor !== 'transparent' ) {
+                e.target.style.backgroundColor = getPaintColor();   
+            } 
+             
             console.log(e.type);
     } else {
         return;
@@ -100,6 +113,113 @@ function togglePanelOff () {
     panel.classList.remove('panel-active')
 };
 
+// function to change color randomly
+function changeColorRandomly () {
+    let randomColor = `rgb(${Math.ceil(Math.random() * 255)}, 
+                ${Math.ceil(Math.random() * 255)}, 
+                ${Math.ceil(Math.random() * 255)})`
+    
+    return randomColor
+};
+
+// function to change color according to color change
+let x = 0;
+
+function colorState () {
+    let defaultBtn = document.getElementById('default');
+    let rainbowBtn = document.getElementById('rainbow');
+    let eraserBtn = document.getElementById('eraser');
+    let customBtn = document.getElementById('custom');
+    
+    defaultBtn.addEventListener('click', () => {
+        x = 0
+        if (eraserBtn.classList.contains('btn-active')){
+            eraserBtn.classList.remove('btn-active');
+        } else if (rainbowBtn.classList.contains('btn-active')) {
+            rainbowBtn.classList.remove('btn-active');
+        };
+
+        if (!defaultBtn.classList.contains('btn-active')) {
+            defaultBtn.classList.add('btn-active')
+        }
+        
+    });
+    
+    eraserBtn.addEventListener('click', () => {
+        x = 1;
+        if (defaultBtn.classList.contains('btn-active')){
+            defaultBtn.classList.remove('btn-active');
+        } else if (rainbowBtn.classList.contains('btn-active')) {
+            rainbowBtn.classList.remove('btn-active');
+        };
+
+        eraserBtn.classList.add('btn-active')
+        
+    });
+
+    rainbowBtn.addEventListener('click', () => {
+        x = 2
+        if (defaultBtn.classList.contains('btn-active')){
+            defaultBtn.classList.remove('btn-active');
+        } else if (eraserBtn.classList.contains('btn-active')) {
+            eraserBtn.classList.remove('btn-active');
+        };
+
+        rainbowBtn.classList.add('btn-active')
+    });
+
+    customBtn.addEventListener('click', () => {
+        x = 3
+    });
+    
+};
+
+colorState()
+
+function getPaintColor () {
+    switch (x) {
+        // default btn pressed
+        case 0:
+            return 'black'
+
+        // eraser button pressed
+        case 1:
+            return 'transparent'
+           
+        // rainbow button pressed    
+        case 2:
+            return changeColorRandomly()
+    }
+    let colorWheel = document.getElementById('color-wheel');
+    return colorWheel.value;
+  }
+
+  // function to size grid according to input
+  function changeGridSize () {
+    let gridSizeValuePara = document.getElementById('grid-size-value');
+    let gridSizeInput = document.getElementById('grid-size-input');
+    
+    
+    gridSizeInput.addEventListener('change', () => {
+        let points = document.querySelectorAll('.points');
+        let newPoint = document.createElement('div');
+        newPoint.classList.add('points')
+        newPoint.style.width = `calc(100% / ${+gridSizeInput.value})`;
+
+        gridSizeValuePara.textContent = gridSizeInput.value + ' x ' + gridSizeInput.value;
+        let gridSize = gridSizeInput.value;
+        [...points].forEach(point => {
+            sketchArea.removeChild(point);
+            
+        });
+        createGrid()    
+        
+    })
+    
+  }
+
+  
+  changeGridSize()
 
 
 window.addEventListener('resize', () => {
@@ -111,7 +231,7 @@ window.addEventListener('resize', () => {
         
     }
     
-});
+}); 
 
 window.addEventListener('load', () => {
     panelToggleOn.addEventListener('click', togglePanelOn);
