@@ -14,26 +14,22 @@ sketchArea.addEventListener('mousedown', () => {
 })
 
 sketchArea.addEventListener('touchstart', e => {
-    if (!e.target.style.backgroundColor && x != 1) {
-        e.target.style.backgroundColor = getPaintColor()
-    } else {
-        e.target.style.backgroundColor = getPaintColor()
-    };
-    
-}, {passive: false})
+    if (window.getComputedStyle(e.target).backgroundColor === 'rgba(0, 0, 0, 0)' ||
+    x === 1)
+        e.target.style.backgroundColor = getPaintColor();   
+    }
+, {passive: false})
 
 sketchArea.addEventListener('touchmove', (e)=> {
   e.preventDefault();
   let touch = e.touches[0];
   let element = document.elementFromPoint(touch.clientX, touch.clientY);
   
-  if (element.className === 'points') {
-    if (!element.style.backgroundColor && x != 1) {
-        element.style.backgroundColor = getPaintColor();
-    } else {
-        element.style.backgroundColor = getPaintColor();
-    };
-  };
+  if (element.classList.contains('points')) {
+    if (window.getComputedStyle(element).backgroundColor === 'rgba(0, 0, 0, 0)' ||
+            x === 1)
+                element.style.backgroundColor = getPaintColor();   
+            };
 }, {passive:false})
 
 
@@ -53,25 +49,28 @@ function createGrid () {
         point.addEventListener('mouseover',changeColor); 
         point.style.width = `calc(100% / ${gridSize})`
         
+        
     });
-    
+      
 };
 
 
+
 function changeColor (e) {    
+    
     if (window.innerWidth > 700) {
         if ((mouseDown && e.type === 'mouseover') || e.type == 'mousedown'){
-            if((!e.target.style.backgroundColor && x != 1) &&
-                e.target.style.backgroundColor !== 'transparent' ) {
+            if (window.getComputedStyle(e.target).backgroundColor === 'rgba(0, 0, 0, 0)' ||
+            x === 1)
                 e.target.style.backgroundColor = getPaintColor();   
             } 
-             
-            console.log(e.type);
+            
+
     } else {
         return;
     }; 
 } 
- };
+ 
 
 
 
@@ -202,25 +201,69 @@ function getPaintColor () {
     
     gridSizeInput.addEventListener('change', () => {
         let points = document.querySelectorAll('.points');
-        let newPoint = document.createElement('div');
-        newPoint.classList.add('points')
-        newPoint.style.width = `calc(100% / ${+gridSizeInput.value})`;
-
-        gridSizeValuePara.textContent = gridSizeInput.value + ' x ' + gridSizeInput.value;
-        let gridSize = gridSizeInput.value;
         [...points].forEach(point => {
             sketchArea.removeChild(point);
             
         });
-        createGrid()    
         
-    })
+        createGrid()
+
+        // add grid lines for a short time
+        let newPoints = document.querySelectorAll('.points');
+        newPoints.forEach(point => {
+            point.classList.add('grid-lines')
+        });
+
+        // state manager for when to remove gridlines 
+        let y = 0;
+        let intervalId = setInterval(() => {
+            y++;
+            if (y == 1) {
+                newPoints.forEach(point => {
+                    point.classList.remove('grid-lines');
+                    
+                });
+            };
+        }, 1000)
+        if (y == 1) {
+            clearInterval(intervalId);
+            y = 0;
+        };
+        
+    });
     
   }
 
   
-  changeGridSize()
+changeGridSize()
 
+let gridButton = document.getElementById('grid-button');
+let newGridButton = gridButton.cloneNode(true);
+newGridButton.textContent = 'Remove grid lines';
+
+gridButton.addEventListener('click', () => {
+    let points = document.querySelectorAll('.points');
+    points.forEach(point => {
+        point.classList.add('grid-lines');
+    });
+    gridButton.parentNode.replaceChild(newGridButton, gridButton);
+  });
+
+newGridButton.addEventListener('click', () => {
+    let points = document.querySelectorAll('.points');
+    points.forEach(point => {
+        point.classList.remove('grid-lines');
+    });
+
+    newGridButton.parentNode.replaceChild(gridButton, newGridButton);
+});
+
+let backgroundButton = document.getElementById('background-button');
+backgroundButton.addEventListener('click', () => {
+    let sketchArea = document.querySelector('.sketch-area');
+    let backgroundColorSelector = document.getElementById('background-color-selector');
+    sketchArea.style.backgroundColor = backgroundColorSelector.value
+})
 
 window.addEventListener('resize', () => {
     if (window.innerWidth < 700) {

@@ -2,6 +2,7 @@
 ::before,
 ::after {
     box-sizing: border-box;
+    
 }
 
 body {
@@ -20,21 +21,29 @@ header {
 
 header > h1 {
     text-align: center;
+    font-size: 3rem;
+    font-weight: 600;
     margin: 0;
+    font-family: 'Cabin Sketch';
 }
 
-
+header > h1 > span {
+    font-family: 'Londrina Sketch';
+}
 .panel {
     width: 0;
     position:absolute;
     top: 0;
     right: 0;
-    background-color: rgb(221, 114, 114);
+    background-color: #f0f0f0;
+    /*background-color: rgb(221, 114, 114);*/
     color: black;
     display: flex;
     z-index: 1;
     overflow: hidden;
     transition: width 0.5s;
+    font-family: 'Concert One';
+    font-weight: 100;
 }
 
 .panel-full-height {
@@ -49,8 +58,7 @@ header > h1 {
         width: unset;
         background-color: #f0f0f0;
         border-right: 1px solid black;
-        margin-right: 4rem;
-        margin-left: 2rem;
+       
     }
 }
 
@@ -61,13 +69,37 @@ header > h1 {
 .panel-toggle-on, .panel-toggle-off {
     width: 30px;
     height: 30px;
-    border: 1px solid blue;
+    
 }
 
 .panel-toggle-on {
     position: absolute;
     right: 0.5rem;
-    top: 1rem
+    top: 1rem;
+    border: none;
+    box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+.panel-toggle-on > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.panel-toggle-off  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.panel-toggle-off > p {
+    margin: 0;
+    padding: 0;
+    font-weight: 600;
+}
+
+div.settings {
+    width: 100%
 }
 
 .buttons {
@@ -100,6 +132,22 @@ input[type='color'] {
     background: none;
 }
 
+button {
+    font-family: 'Concert One';
+    font-weight: 10;
+    padding: 0.5rem;
+    margin: 0.2rem
+}
+
+.settings > h2 {
+    font-weight: 100;
+    
+}
+
+h3 {
+    font-weight: 100;
+}
+
 .grid-size-container {
     display: flex;
     flex-direction: column;
@@ -126,8 +174,9 @@ input[type='color'] {
 
 @media (min-width: 700px) {
     .main {
-        display: flex;
-       
+        display: grid;
+        grid-template-columns: 20% 80%;
+        padding-left: 4rem
     }
 }
 
@@ -150,7 +199,8 @@ input[type='color'] {
     }
 
     .panel {
-        min-height: 60vh;
+        max-height: 60vh;
+        overflow-y: scroll;
     }
 
     .panel-toggle-off {
@@ -166,19 +216,42 @@ input[type='color'] {
     }
 
     .panel {
-        min-height: 70vh ;
+        max-height: 70vh;
+        overflow-y: scroll;
+        margin-left: 4rem
     }
 
 }
 
 .points {
-    border: 1px solid blue;
     margin: 0;
-    
 }
 
+
+/* class toggleable by javascript to show grid lines*/
+.grid-lines {
+    border: 0.5px solid blue;
+}
 
 /* class toggleable by javascripts for buttons */
 .btn-active {
     background-color: deepskyblue;
+}
+
+div.utilities {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    margin: auto;
+    min-width: 100%;
+}
+
+footer > p {
+    text-align: center;
+    font-family: 'Concert One', 'Courier New', Courier, monospace;
 }

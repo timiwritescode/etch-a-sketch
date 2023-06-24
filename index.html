@@ -6,36 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Concert One|Cabin Sketch|Londrina Sketch">
+
     <script src="script.js" defer></script>
 </head>
 <body>
     <header>
-        <h1>etch-a-sketch</h1>
+        <h1>etch-a-<span>sketch</span></h1>
         
     </header>
     <main>
         <div class="main">
             <div class="mobile-panel">
-                <div class="panel-toggle-on">tools</div>
+                <div class="panel-toggle-on"><img src="pictures/R.jpeg" alt="tool box"></div>
                 <div class="panel">
-                        <div class="panel-toggle-off"></div>
+                        <div class="panel-toggle-off"><p>X</p></div>
                         <div class="settings">
-                            <h1>Settings</h3>
+                            <h2>Tools</h2>
     
                             
-                            <h2>Choose Color</h2>
+                            <h3>Choose Color</h3>
                             <div class="buttons">
-                                <button id="default" class="btn-active">Default</button>
-                                <button id="rainbow">Rainbow</button>
-                                <button id="eraser">Eraser</button>
-                                <h2>Custom</h2>
+                                <div class="utilities">
+                                    <button id="default" class="btn-active">Default</button>
+                                    <button id="rainbow">Rainbow</button>
+                                    <button id="eraser">Eraser</button>
+                                    <button id="grid-button">Show grid Lines</button>
+                                </div>
+                                <h3>Custom</h3>
                                 <div class="custom-color-choice">
                                     <input type="color" id="color-wheel">
                                     <button id="custom">Choose color</button>
+                                    <h3>Change color</h3>
+                                    <input type="color" name="" id="background-color-selector" value="#ffffff">
+                                    <button id="background-button">Change background</button>
                                 </div>
                                 
                                 <div class="grid-size-container">
-                                    <h2>Grid size</h2>
+                                    <h3>Grid size</h3>
                                     <p id="grid-size-value">17 X 17</p>
                                     <input id="grid-size-input" 
                                         type="range"
@@ -56,6 +64,8 @@
         </div>
         </main>
         
-
+        <footer>
+            <p>Made by Oluwatimilehin</p>
+        </footer>
 </body>
 </html>
