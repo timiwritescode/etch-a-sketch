@@ -282,6 +282,10 @@ window.addEventListener('load', () => {
     removeElementsBasedOnScreenSize()
     addElementsBasedOnScreenSize()
     createGrid();
+
+    if (window.innerWidth < 700) {
+        alert('Click the button at the top right corner for the toolbox')
+    }
     
 })
 

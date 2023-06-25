@@ -209,6 +209,11 @@ h3 {
 
 }
 
+.sketch-area-container {
+    display: flex;
+    justify-content: center;
+}
+
 @media (min-width: 900px) {
     .sketch-area {
         width: 500px;
@@ -254,4 +259,8 @@ footer {
 footer > p {
     text-align: center;
     font-family: 'Concert One', 'Courier New', Courier, monospace;
+}
+
+footer > p > a {
+    color: inherit
 }
