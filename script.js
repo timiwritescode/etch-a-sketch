@@ -194,27 +194,11 @@ function getPaintColor () {
     return colorWheel.value;
   }
 
-// function to download the image 
-function downloadDivContent(divId, filename) {
-    const element = document.getElementById(divId);
-    html2canvas(element).then(function (canvas) {
-        let dataURL = canvas.toDataURL();
-
-        let link = document.createElement('a');
-        link.href = dataURL;
-        link.download = filename;
-
-        link.click();
-    })
-}
-
-
   // function to size grid according to input
   function changeGridSize () {
     let gridSizeValuePara = document.getElementById('grid-size-value');
     let gridSizeInput = document.getElementById('grid-size-input');
-    
-    
+        
     gridSizeInput.addEventListener('change', () => {
         let points = document.querySelectorAll('.points');
         [...points].forEach(point => {
@@ -252,8 +236,6 @@ function downloadDivContent(divId, filename) {
   
 changeGridSize()
 
-
-
 let gridButton = document.getElementById('grid-button');
 let newGridButton = gridButton.cloneNode(true);
 newGridButton.textContent = 'Remove grid lines';
@@ -280,12 +262,6 @@ backgroundButton.addEventListener('click', () => {
     let sketchArea = document.querySelector('.sketch-area');
     let backgroundColorSelector = document.getElementById('background-color-selector');
     sketchArea.style.backgroundColor = backgroundColorSelector.value
-})
-
-let downloadBtn = document.getElementById('download-button');
-downloadBtn.addEventListener('click', () => {
-    let drawing = document.querySelector('.sketch-area');
-    downloadDivContent('sketch-area', 'prototype');
 })
 
 
