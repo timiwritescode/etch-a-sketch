@@ -39,6 +39,7 @@ function createGrid () {
     let gridSizeInput = document.getElementById('grid-size-input');
     let gridSize = gridSizeInput.value;
     newPoints.className = 'points';
+    newPoints.id = 'cell';
     for (let i =0; i < +gridSize * +gridSize; ++i) {
         sketchArea.appendChild(newPoints.cloneNode(true))
     };
@@ -193,6 +194,21 @@ function getPaintColor () {
     return colorWheel.value;
   }
 
+// function to download the image 
+function downloadDivContent(divId, filename) {
+    const element = document.getElementById(divId);
+    html2canvas(element).then(function (canvas) {
+        let dataURL = canvas.toDataURL();
+
+        let link = document.createElement('a');
+        link.href = dataURL;
+        link.download = filename;
+
+        link.click();
+    })
+}
+
+
   // function to size grid according to input
   function changeGridSize () {
     let gridSizeValuePara = document.getElementById('grid-size-value');
@@ -205,7 +221,7 @@ function getPaintColor () {
             sketchArea.removeChild(point);
             
         });
-        
+        gridSizeValuePara.textContent = gridSizeInput.value + ' X ' + gridSizeInput.value
         createGrid()
 
         // add grid lines for a short time
@@ -233,9 +249,10 @@ function getPaintColor () {
     });
     
   }
-
   
 changeGridSize()
+
+
 
 let gridButton = document.getElementById('grid-button');
 let newGridButton = gridButton.cloneNode(true);
@@ -265,6 +282,13 @@ backgroundButton.addEventListener('click', () => {
     sketchArea.style.backgroundColor = backgroundColorSelector.value
 })
 
+let downloadBtn = document.getElementById('download-button');
+downloadBtn.addEventListener('click', () => {
+    let drawing = document.querySelector('.sketch-area');
+    downloadDivContent('sketch-area', 'prototype');
+})
+
+
 window.addEventListener('resize', () => {
     if (window.innerWidth < 700) {
         addElementsBasedOnScreenSize();
@@ -279,13 +303,13 @@ window.addEventListener('resize', () => {
 window.addEventListener('load', () => {
     panelToggleOn.addEventListener('click', togglePanelOn);
     panelToggleOff.addEventListener('click', togglePanelOff);
-    removeElementsBasedOnScreenSize()
-    addElementsBasedOnScreenSize()
+    removeElementsBasedOnScreenSize();
+    addElementsBasedOnScreenSize();
     createGrid();
 
     if (window.innerWidth < 700) {
-        alert('Click the button at the top right corner for the toolbox')
-    }
+        alert('Click the button at the top right corner for the toolbox');
+    };
     
-})
+});
 
